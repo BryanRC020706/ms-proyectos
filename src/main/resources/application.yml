@@ -1,0 +1,20 @@
+server:
+  port: 8084
+
+spring:
+  application:
+    name: proyecto-service
+
+  datasource:
+    url: jdbc:mysql://localhost:3306/db_jei
+    username: root
+    password: mysql
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
