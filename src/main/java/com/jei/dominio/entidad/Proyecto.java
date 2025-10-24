@@ -21,6 +21,8 @@ public class Proyecto {
     @Enumerated(EnumType.STRING)
     private Estado estado;
     private String usuario;
+    @Enumerated(EnumType.STRING)
+    private Departamento departamento;
     private LocalDate fechaCreacion;
     private String epicas;
 }

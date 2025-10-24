@@ -16,6 +16,7 @@ public class ProyectoRequestDto {
     private String cuenta;
     private String estado;
     private String usuario;
+    private String departamento;
     private LocalDate fechaCreacion;
     private String epicas;
 }

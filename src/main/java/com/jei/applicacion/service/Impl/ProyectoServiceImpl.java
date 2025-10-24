@@ -2,6 +2,8 @@ package com.jei.applicacion.service.Impl;
 
 import com.jei.applicacion.mapper.ProyectoMapper;
 import com.jei.applicacion.service.ProyectoService;
+import com.jei.dominio.entidad.Departamento;
+import com.jei.dominio.entidad.Estado;
 import com.jei.dominio.entidad.Proyecto;
 import com.jei.dominio.repository.ProyectoRepository;
 import com.jei.web.dto.ProyectoResponseDto;
@@ -30,5 +32,13 @@ public class ProyectoServiceImpl implements ProyectoService {
         Proyecto proyecto = proyectoRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Proyecto no encontrado con ID: " + id));
         return proyectoMapper.toDto(proyecto);
+    }
+
+    @Override
+    public List<ProyectoResponseDto> buscarPorDepartamentoYEstado(Departamento departamento, Estado estado) {
+        return proyectoRepository.findByDepartamentoAndEstado(departamento, estado)
+                .stream()
+                .map(proyectoMapper::toDto)
+                .toList();
     }
 }

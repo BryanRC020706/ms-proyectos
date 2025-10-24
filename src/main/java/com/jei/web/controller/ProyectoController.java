@@ -1,13 +1,12 @@
 package com.jei.web.controller;
 
 import com.jei.applicacion.service.ProyectoService;
+import com.jei.dominio.entidad.Departamento;
+import com.jei.dominio.entidad.Estado;
 import com.jei.web.dto.ProyectoResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,9 +18,19 @@ public class ProyectoController {
     private final ProyectoService proyectoService;
 
     @GetMapping
-    public ResponseEntity<List<ProyectoResponseDto>> buscar() {
-        List<ProyectoResponseDto> proyecto = proyectoService.buscar();
-        return ResponseEntity.ok(proyecto);
+    public ResponseEntity<List<ProyectoResponseDto>> buscar(@RequestParam(value = "departamento", required = false) Departamento departamento,
+                                                            @RequestParam(value = "estado", required = false) Estado estado) {
+
+        List<ProyectoResponseDto> issues;
+
+        if (departamento != null && estado != null) {
+            issues = proyectoService.buscarPorDepartamentoYEstado(departamento, estado);
+        }
+        else {
+            issues = proyectoService.buscar();
+        }
+
+        return ResponseEntity.ok(issues);
     }
 
     @GetMapping("/{id}")

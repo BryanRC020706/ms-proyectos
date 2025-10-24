@@ -1,9 +1,9 @@
 package com.jei.dominio.entidad;
 
 public enum Estado {
+    PROPUESTO,
     APROBADO,
-    COMPLETADO,
-    REVISION,
     EN_CURSO,
-    SIN_EMPEZAR
+    EN_REVISION,
+    COMPLETADO
 }

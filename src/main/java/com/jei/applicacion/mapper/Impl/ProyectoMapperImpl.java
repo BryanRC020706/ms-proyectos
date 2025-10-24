@@ -1,6 +1,7 @@
 package com.jei.applicacion.mapper.Impl;
 
 import com.jei.applicacion.mapper.ProyectoMapper;
+import com.jei.dominio.entidad.Departamento;
 import com.jei.dominio.entidad.Estado;
 import com.jei.dominio.entidad.Proyecto;
 import com.jei.web.dto.ProyectoRequestDto;
@@ -15,6 +16,7 @@ public class ProyectoMapperImpl implements ProyectoMapper {
                 .nombre(proyectoRequestDto.getNombre())
                 .cuenta(proyectoRequestDto.getCuenta())
                 .estado(Estado.valueOf(proyectoRequestDto.getEstado()))
+                .departamento(Departamento.valueOf(proyectoRequestDto.getDepartamento()))
                 .usuario(proyectoRequestDto.getUsuario())
                 .fechaCreacion(proyectoRequestDto.getFechaCreacion())
                 .epicas(proyectoRequestDto.getEpicas())
@@ -29,6 +31,7 @@ public class ProyectoMapperImpl implements ProyectoMapper {
                 .cuenta(proyecto.getCuenta())
                 .estado(proyecto.getEstado().name())
                 .usuario(proyecto.getUsuario())
+                .departamento(proyecto.getDepartamento().name())
                 .fechaCreacion(proyecto.getFechaCreacion())
                 .epicas(proyecto.getEpicas())
                 .build();
