@@ -10,4 +10,5 @@ public interface ProyectoService {
     List<ProyectoResponseDto> buscar();
     ProyectoResponseDto buscarPorId(Long id);
     List<ProyectoResponseDto> buscarPorDepartamentoYEstado(Departamento departamento, Estado estado);
+    List<ProyectoResponseDto> buscarPorDepartamento(Departamento departamento);
 }

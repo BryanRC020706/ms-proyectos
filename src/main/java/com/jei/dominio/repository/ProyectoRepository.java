@@ -9,4 +9,5 @@ import java.util.List;
 
 public interface ProyectoRepository extends JpaRepository<Proyecto, Long> {
     List<Proyecto> findByDepartamentoAndEstado(Departamento departamento, Estado estado);
+    List<Proyecto> findByDepartamento(Departamento departamento);
 }

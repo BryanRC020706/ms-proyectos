@@ -17,7 +17,7 @@ public class ProyectoMapperImpl implements ProyectoMapper {
                 .cuenta(proyectoRequestDto.getCuenta())
                 .estado(Estado.valueOf(proyectoRequestDto.getEstado()))
                 .departamento(Departamento.valueOf(proyectoRequestDto.getDepartamento()))
-                .usuario(proyectoRequestDto.getUsuario())
+                .usuario(Long.valueOf(proyectoRequestDto.getUsuario()))
                 .fechaCreacion(proyectoRequestDto.getFechaCreacion())
                 .epicas(proyectoRequestDto.getEpicas())
                 .build();
@@ -30,7 +30,6 @@ public class ProyectoMapperImpl implements ProyectoMapper {
                 .nombre(proyecto.getNombre())
                 .cuenta(proyecto.getCuenta())
                 .estado(proyecto.getEstado().name())
-                .usuario(proyecto.getUsuario())
                 .departamento(proyecto.getDepartamento().name())
                 .fechaCreacion(proyecto.getFechaCreacion())
                 .epicas(proyecto.getEpicas())

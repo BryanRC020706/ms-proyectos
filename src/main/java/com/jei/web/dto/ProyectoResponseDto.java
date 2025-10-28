@@ -1,5 +1,6 @@
 package com.jei.web.dto;
 
+import com.jei.applicacion.client.UsuarioResponseDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +17,7 @@ public class ProyectoResponseDto {
     private String nombre;
     private String cuenta;
     private String estado;
-    private String usuario;
+    private UsuarioResponseDto usuario;
     private String departamento;
     private LocalDate fechaCreacion;
     private String epicas;

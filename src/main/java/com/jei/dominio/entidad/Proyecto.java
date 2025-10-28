@@ -20,7 +20,7 @@ public class Proyecto {
     private String cuenta;
     @Enumerated(EnumType.STRING)
     private Estado estado;
-    private String usuario;
+    private Long usuario;
     @Enumerated(EnumType.STRING)
     private Departamento departamento;
     private LocalDate fechaCreacion;

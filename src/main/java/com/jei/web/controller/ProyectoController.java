@@ -6,9 +6,14 @@ import com.jei.dominio.entidad.Estado;
 import com.jei.web.dto.ProyectoResponseDto;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api/proyectos")
@@ -18,16 +23,34 @@ public class ProyectoController {
     private final ProyectoService proyectoService;
 
     @GetMapping
-    public ResponseEntity<List<ProyectoResponseDto>> buscar(@RequestParam(value = "departamento", required = false) Departamento departamento,
+    public ResponseEntity<List<ProyectoResponseDto>> buscar(@RequestParam(value = "departamento", required = false) String departamentoStr,
                                                             @RequestParam(value = "estado", required = false) Estado estado) {
 
-        List<ProyectoResponseDto> issues;
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        if (departamento != null && estado != null) {
-            issues = proyectoService.buscarPorDepartamentoYEstado(departamento, estado);
+        String userRole = "ADMIN";
+        String userDepartamento = "COMERCIAL";
+
+        if (auth != null && auth.getPrincipal() != null) {
+            Object principal = auth.getPrincipal();
+            if (principal instanceof Jwt jwt) {
+                userRole = jwt.getClaimAsString("role");
+                userDepartamento = jwt.getClaimAsString("departamento");
+            }
         }
-        else {
-            issues = proyectoService.buscar();
+
+        Departamento departamentoFinal;
+        if (departamentoStr != null && "ADMIN".equalsIgnoreCase(userRole)) {
+            departamentoFinal = Departamento.valueOf(departamentoStr.toUpperCase());
+        } else {
+            departamentoFinal = Departamento.valueOf(userDepartamento.toUpperCase());
+        }
+
+        List<ProyectoResponseDto> issues;
+        if (departamentoStr != null && estado != null) {
+            issues = proyectoService.buscarPorDepartamentoYEstado(departamentoFinal, estado);
+        } else {
+            issues = proyectoService.buscarPorDepartamento(departamentoFinal);
         }
 
         return ResponseEntity.ok(issues);
