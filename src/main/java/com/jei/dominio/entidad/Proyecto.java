@@ -17,12 +17,11 @@ public class Proyecto {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
-    private String cuenta;
+    private int porcentaje;
     @Enumerated(EnumType.STRING)
     private Estado estado;
     private Long usuario;
     @Enumerated(EnumType.STRING)
     private Departamento departamento;
     private LocalDate fechaCreacion;
-    private String epicas;
 }

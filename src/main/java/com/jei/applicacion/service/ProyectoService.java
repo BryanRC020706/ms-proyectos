@@ -2,6 +2,7 @@ package com.jei.applicacion.service;
 
 import com.jei.dominio.entidad.Departamento;
 import com.jei.dominio.entidad.Estado;
+import com.jei.web.dto.ProyectoRequestDto;
 import com.jei.web.dto.ProyectoResponseDto;
 
 import java.util.List;
@@ -11,4 +12,6 @@ public interface ProyectoService {
     ProyectoResponseDto buscarPorId(Long id);
     List<ProyectoResponseDto> buscarPorDepartamentoYEstado(Departamento departamento, Estado estado);
     List<ProyectoResponseDto> buscarPorDepartamento(Departamento departamento);
+    ProyectoResponseDto crear(ProyectoRequestDto proyectoRequest);
+    ProyectoResponseDto editar(Long id, ProyectoRequestDto proyectoRequest);
 }

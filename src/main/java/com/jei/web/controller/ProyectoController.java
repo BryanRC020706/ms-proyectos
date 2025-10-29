@@ -3,8 +3,10 @@ package com.jei.web.controller;
 import com.jei.applicacion.service.ProyectoService;
 import com.jei.dominio.entidad.Departamento;
 import com.jei.dominio.entidad.Estado;
+import com.jei.web.dto.ProyectoRequestDto;
 import com.jei.web.dto.ProyectoResponseDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -60,5 +62,17 @@ public class ProyectoController {
     public ResponseEntity<ProyectoResponseDto> buscarPorId(@PathVariable Long id) {
         ProyectoResponseDto proyecto = proyectoService.buscarPorId(id);
         return ResponseEntity.ok(proyecto);
+    }
+    @PostMapping
+    public ResponseEntity<ProyectoResponseDto> crear(@RequestBody ProyectoRequestDto proyectoRequest) {
+        ProyectoResponseDto creado = proyectoService.crear(proyectoRequest);
+        return ResponseEntity.status(HttpStatus.CREATED).body(creado);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProyectoResponseDto> editar(@PathVariable Long id,
+                                                      @RequestBody ProyectoRequestDto proyectoRequest) {
+        ProyectoResponseDto actualizado = proyectoService.editar(id, proyectoRequest);
+        return ResponseEntity.ok(actualizado);
     }
 }

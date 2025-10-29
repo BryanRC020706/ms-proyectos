@@ -15,10 +15,9 @@ import java.time.LocalDate;
 public class ProyectoResponseDto {
     private Long id;
     private String nombre;
-    private String cuenta;
+    private int porcentaje;
     private String estado;
     private UsuarioResponseDto usuario;
     private String departamento;
     private LocalDate fechaCreacion;
-    private String epicas;
 }

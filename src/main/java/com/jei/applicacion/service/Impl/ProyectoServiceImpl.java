@@ -8,15 +8,13 @@ import com.jei.dominio.entidad.Departamento;
 import com.jei.dominio.entidad.Estado;
 import com.jei.dominio.entidad.Proyecto;
 import com.jei.dominio.repository.ProyectoRepository;
+import com.jei.web.dto.ProyectoRequestDto;
 import com.jei.web.dto.ProyectoResponseDto;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.oauth2.jwt.Jwt;
+
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -107,5 +105,53 @@ public class ProyectoServiceImpl implements ProyectoService {
                     return dto;
                 })
                 .toList();
+    }
+
+    @Override
+    public ProyectoResponseDto crear(ProyectoRequestDto proyectoRequest) {
+        Proyecto proyecto = proyectoMapper.toDomain(proyectoRequest);
+
+        Proyecto saved = proyectoRepository.save(proyecto);
+
+        ProyectoResponseDto dto = proyectoMapper.toDto(saved);
+
+        if (saved.getUsuario() != null) {
+            try {
+                UsuarioResponseDto usuario = usuarioClient.buscarPorId(saved.getUsuario());
+                dto.setUsuario(usuario);
+            } catch (Exception e) {
+                System.out.println("No se encontró el usuario con ID: " + saved.getUsuario());
+            }
+        }
+
+        return dto;
+    }
+
+    @Override
+    public ProyectoResponseDto editar(Long id, ProyectoRequestDto proyectoRequest) {
+        Proyecto existing = proyectoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No se encontró proyecto con ID: " + id));
+
+        existing.setNombre(proyectoRequest.getNombre());
+        existing.setPorcentaje(proyectoRequest.getPorcentaje());
+        existing.setEstado(Estado.valueOf(proyectoRequest.getEstado()));
+        existing.setDepartamento(Departamento.valueOf(proyectoRequest.getDepartamento()));
+        existing.setUsuario(proyectoRequest.getUsuario());
+        existing.setFechaCreacion(proyectoRequest.getFechaCreacion());
+
+        Proyecto updated = proyectoRepository.save(existing);
+
+        ProyectoResponseDto dto = proyectoMapper.toDto(updated);
+
+        if (updated.getUsuario() != null) {
+            try {
+                UsuarioResponseDto usuario = usuarioClient.buscarPorId(updated.getUsuario());
+                dto.setUsuario(usuario);
+            } catch (Exception e) {
+                System.out.println("No se encontró el usuario con ID: " + updated.getUsuario());
+            }
+        }
+
+        return dto;
     }
 }

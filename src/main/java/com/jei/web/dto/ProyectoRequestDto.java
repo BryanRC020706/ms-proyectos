@@ -13,10 +13,9 @@ import java.time.LocalDate;
 @Builder
 public class ProyectoRequestDto {
     private String nombre;
-    private String cuenta;
+    private int porcentaje;
     private String estado;
-    private String usuario;
+    private Long usuario;
     private String departamento;
     private LocalDate fechaCreacion;
-    private String epicas;
 }

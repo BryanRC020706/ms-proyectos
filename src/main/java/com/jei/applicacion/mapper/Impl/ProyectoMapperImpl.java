@@ -14,12 +14,11 @@ public class ProyectoMapperImpl implements ProyectoMapper {
     public Proyecto toDomain(ProyectoRequestDto proyectoRequestDto) {
         return Proyecto.builder()
                 .nombre(proyectoRequestDto.getNombre())
-                .cuenta(proyectoRequestDto.getCuenta())
+                .porcentaje(proyectoRequestDto.getPorcentaje())
                 .estado(Estado.valueOf(proyectoRequestDto.getEstado()))
                 .departamento(Departamento.valueOf(proyectoRequestDto.getDepartamento()))
-                .usuario(Long.valueOf(proyectoRequestDto.getUsuario()))
+                .usuario(proyectoRequestDto.getUsuario())
                 .fechaCreacion(proyectoRequestDto.getFechaCreacion())
-                .epicas(proyectoRequestDto.getEpicas())
                 .build();
     }
 
@@ -28,11 +27,10 @@ public class ProyectoMapperImpl implements ProyectoMapper {
         return ProyectoResponseDto.builder()
                 .id(proyecto.getId())
                 .nombre(proyecto.getNombre())
-                .cuenta(proyecto.getCuenta())
+                .porcentaje(proyecto.getPorcentaje())
                 .estado(proyecto.getEstado().name())
                 .departamento(proyecto.getDepartamento().name())
                 .fechaCreacion(proyecto.getFechaCreacion())
-                .epicas(proyecto.getEpicas())
                 .build();
     }
 }
